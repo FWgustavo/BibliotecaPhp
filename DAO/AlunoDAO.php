@@ -53,5 +53,25 @@ final class AlunoDAO extends DAO
         $stmt = parent::$conexao->prepare($sql);
         $stmt->bindValue(1, $id);
     }
+
+    public function select() : array
+    {
+        $sql = "SELECT * FROM aluno ";
+
+        $stmt = parent::$conexao->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "App\Model\Aluno");
+    }
+
+    public function delete(int $id) : bool
+    {
+        $sql = "DELETE FROM aluno WHERE id=? ";
+
+        $stmt = parent::$conexao->prepare($sql);
+        $stmt->bindValue(1,$id);
+        return $stmt->execute();
+    }
+
 }
 ?>
